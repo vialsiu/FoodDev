@@ -1,102 +1,194 @@
-/* I imported the Lato Font from Google */
-@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+/*  variables for our project will be here */
+:root {
+    /*  The colours that we use often: */
+    --yellow-color: rgb(222, 187, 104); 
+    --white-color: rgb(255, 255, 255);
+    --pink-color: rgb(153, 22, 101);
+    --black-color: rgb(0, 0, 0);
+  
+    /* importing lato font*/
+    @import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+    --h1-font-size: 2rem;
+    --small-font-size: 0.813rem;
+    font-family: 'Poppins', sans-serif;
+  }
 
-*{
-    margin: 0;
+  input[type="text"],input[type="email"] 
+    {
+    width: 20em;
+    height:2em;
+    }
+  input[placeholder]
+    {
+    height:2em;
+    }
+  
+  /*   assign attributes to everything + colour pallete vars here */
+  * {
+    box-sizing: border-box;
     padding: 0;
+    margin: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     text-align:justify;
-}
-
-h1{
-    color: 	#ffe88a;
-}
-
-h4{
-    color: 	#fbbe84;
-}
-
-.container{
+    color: rgb(255, 255, 255);
+  }
+  
+  body, input, button {
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+  }
+ 
+  
+  /*     login       */
+  .login {
+    position: relative;
+    display: grid;
+    align-items: center;
+  }
+  
+  .login__bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  
+  .loginform {
+    position: relative;
+    margin-inline: 1.5rem;
+    background-color: rgba(240, 183, 183, 0.1);
+    border: 2px solid rgba(222, 174, 78, 0.7);
+    padding: 2.5rem 1rem;
+    border-radius: 1.5rem;
+    backdrop-filter: blur(8px);
+  }
+  
+  .logtitle {
+    text-align: center;
+    font-size: var(--h1-font-size);
+    margin-bottom: 1.25rem;
+    color: 	#ffd562;
+  }
+  
+  .container{
     display: flex;
     justify-content: center;
     align-items: center;
     width:100%;
     height:120vh;
-    background-image:url("background2.jpg");
-    background-blend-mode:color-burn;
+    background-image:url("fruitbg.jpg");
     background-position:center;
     background-size:cover;
     position:relative;
     background-repeat: no-repeat;
     background-position: center center;
     background-attachment: fixed;
-}
-
-
-.formarea{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 35vw;
-    height: 35vw;
-    max-width: 750px;
-    background: #ff5d5d;
-    filter: saturate(100%);
-    padding: 4vw;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    shape-outside: circle();
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
-
-input[type="text"],input[type="email"] {
-    width: 20em;
-    height:2.5em;
-    }
-
-input[placeholder]{
-    height:30px;
-}
-
-
-
-.leaf {
-    width: 180px; 
-    height: 180px;
-    background:	#537208a1;     
-    border-radius: 5px 100px;
-    transform:rotate(105deg);
-    -webkit-transform:rotate(105deg);
-    -moz-transform:rotate(105deg);
-    position:relative;
-    top:-200px;
-    left:110px;
-}
-
-.formarea h1 h4{
+  .inputcontainer, .boxarea {
+    display: grid;
+  }
+  
+  .inputcontainer {
+    row-gap: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .boxarea {
+    grid-template-columns: 1fr max-content;
+    column-gap: .75rem;
     align-items: center;
-    display:flex;
-    justify-content: center;
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    padding-inline: 1.25rem;
+    border-radius: 4rem;
+  }
+  
+  .userinput,
+  .button {
+    border: none;
+    outline: none;
+  }
+  
+  .userinput {
+    width: 100%;
+    background: none;
+    padding-block: 1rem;
+    color:rgb(239, 210, 130);
+
+  }
+
+  label.checkcontainerlabel{
+    color:rgb(239, 130, 172);
+  }
+
+  a.forgot{
+    margin-right: 10px;
+    text-decoration:none;
+  }
+  
+  .userinput::placeholder {
+    color:#d2bc98e3
+  }
+  
+  .boxarea i {
+    font-size: 1.25rem;
+  }
+  
+  .checkcontainer,
+  .checkbox {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    text-align: center;
-    min-height: 100vh;
-    font-size: 30px;
-    position:relative;
-}
+  }
+  
+  .checkcontainer {
+    margin-bottom: 1rem;
+    font-size: var(--small-font-size);
+  }
 
-.form-box h1::after{
-    content:'';
-    width: 30px;
-    height: 4px;
-    margin-top:20px;
-    border-radius:3px;
-    position:absolute;
-    bottom:-12px;
-    left:50%;
-    transform:translate(-50%)
-}
+  
+  .checkcontainerinput {
+    width: 3rem;
+    height: 1rem;
+    accent-color: var(--yellow-color);
+  }
+  
+  .forgot {
+    color: var(--yellow-color);
+  }
+  
+  .forgot:hover {
+    text-decoration: underline;
+  }
+  
+  .button {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    background-color: var(--yellow-color);
+    border-radius: 4rem;
+    color:rgb(250, 238, 238);
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .login__register {
+    font-size: var(--small-font-size);
+    text-align: center;
+  }
+  
+  .login__register a {
+    color: var(--yellow-color);
+    font-weight: 500;
+  }
+  
+  .login__register a:hover {
+    text-decoration: underline;
+  }
+  
