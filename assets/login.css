@@ -206,19 +206,19 @@
 /* main css*/
 
 #main_body{
-  background-color: whitesmoke;
+  background-color: rgb(255, 255, 255);
   color:#ffffff
 }
 
 table{
   background-color:rgb(255, 255, 255);
-  width: 80%;
-  color: #603030;
+  width: 96%;
+  color: #2e2c2cc7;
   border-collapse: collapse;
   align-self: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 5vh;
+    margin-top: none;
     margin-bottom:5vh;
 }
 .table-container {
@@ -228,15 +228,27 @@ table{
 
 }
 
+#names{
+  color:#240606
+}
+
 th, td {
   padding: 12px;
   text-align: left;
-
 }
 
-header{
-  background-color:#1b1b1b;
-  height: 6vh;
+#nav{
+  background-color:#cfaf91e8;
+  height: 10vh;
+}
+
+#spacer{
+  background-color:white;
+  height:20px;
+  align-items:center;
+  justify-content: center;
+  align-self: center;
+  align-content:center;
 }
 
 th {
@@ -246,31 +258,47 @@ th {
 
 tr:nth-child(odd)
 {
-  background: #f9f9f9;
+  background: rgb(251, 250, 250);
+  border-bottom:1px solid rgba(0, 0, 0, 0.111);
 }
 tr:nth-child(even)
 {
-  background: white
+  background: white;
+  border-bottom:1px solid rgba(0, 0, 0, 0.111);
 }
 td:hover{
-  color: pink;
+  color:peru;
 }
 
-/* .container2{
-  display: flex;
+.tagslabel {
+  display:grid;
+  padding: 3px 6px;
+  font-size: 15px;
+  width:auto;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #a89591;
+  padding-right: 0px;
+  padding-left: 0px;
+  border-radius: 15px;
+  margin-bottom:2px;
   justify-content: center;
-  align-items: center;
-  width:100%;
-  height:120vh;
-  background-position:center;
-  background-size:cover;
-  position:relative;
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-attachment: fixed;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-} */
+}
+
+#spacer_info{
+  color:black;
+}
+span
+{
+display:flex;
+font-size:6vh;
+justify-content:flex-end;
+padding-right: 2.5vw;
+color:white;
+}
+
+button{
+  display: inline-block;
+
+  background-color:none;
+}

@@ -2,8 +2,8 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
   .then(response => response.json())
   .then(jsonData => {
     let htmlString = `<table>
-                        <tr id="labels_table">                            <th>Name</th>
-
+                        <tr id="labels_table">
+                        <th>Name</th>
                             <th>ID</th>
                             <th>Energy</th>
                             <th>Protein</th>
@@ -20,11 +20,12 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                             <th>Vit E</th>
                             <th>Fat</th>
                             <th>Magnesium</th>
+                            <th>Tags</th>
                         </tr>`;
 
     jsonData.forEach(food => {
       htmlString += `<tr>
-                        <td>${food.name}</td>
+                        <td id="names">${food.name}</td>
                         <td>${food.id}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].energy? food['nutrition-per-100g'].energy : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].energy? food['nutrition-per-100ml'].energy : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].protein? food['nutrition-per-100g'].protein : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].protein? food['nutrition-per-100ml'].protein : '-'}</td>
@@ -41,7 +42,9 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e']? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e']? food['nutrition-per-100ml']['vitamin-e'] : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat? food['nutrition-per-100ml'].fat : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].magnesium? food['nutrition-per-100g'].magnesium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].magnesium? food['nutrition-per-100ml'].magnesium : '-'}</td>
-                    </tr>`;
+                        <td class="tagslabel">${food && food.tags && food.tags.length > 0 ? food.tags[0] : ''}</td>
+                        <td class="tagslabel">${food && food.tags && food.tags.length > 1 ? food.tags[1] : ''}</td>
+                        </tr>`;
     });
 
     htmlString += `</table><br>${jsonData.length} records found.`;
