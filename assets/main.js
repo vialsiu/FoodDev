@@ -41,10 +41,11 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].calcium? food['nutrition-per-100g'].calcium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].calcium? food['nutrition-per-100ml'].calcium : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e']? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e']? food['nutrition-per-100ml']['vitamin-e'] : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat? food['nutrition-per-100ml'].fat : '-'}</td>
-                        <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].magnesium? food['nutrition-per-100g'].magnesium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].magnesium? food['nutrition-per-100ml'].magnesium : '-'}</td>
-                        <td class="tagslabel">${food && food.tags && food.tags.length > 0 ? food.tags[0] : ''}</td>
-                        <td class="tagslabel">${food && food.tags && food.tags.length > 1 ? food.tags[1] : ''}</td>
-                        </tr>`;
+                        <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].magnesium? food['nutrition-per-100g'].magnesium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].magnesium? food['nutrition-per-100ml'].magnesium : '-'}</td>`
+                        food.tags ? food.tags.forEach(tag =>{
+                          htmlString+= `<td class="tagslabel">${tag}</td>`
+                        }) : '';
+                        `</tr>`;
     });
 
     htmlString += `</table><br>${jsonData.length} records found.`;
@@ -53,3 +54,4 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
+
