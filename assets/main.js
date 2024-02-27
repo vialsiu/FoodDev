@@ -2,12 +2,12 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
   .then(response => response.json())
   .then(jsonData => {
     let htmlString = `<table>
-                        <tr>
+                        <tr id="labels_table">                            <th>Name</th>
+
                             <th>ID</th>
-                            <th>Name</th>
                             <th>Energy</th>
                             <th>Protein</th>
-                            <th>Saturated Fat</th>
+                            <th>Sat Fat</th>
                             <th>Trans Fat</th>
                             <th>Poly Fat</th>
                             <th>Mono Fat</th>
@@ -20,13 +20,12 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                             <th>Vit E</th>
                             <th>Fat</th>
                             <th>Magnesium</th>
-                            <!-- Add other table headers as needed -->
                         </tr>`;
 
     jsonData.forEach(food => {
       htmlString += `<tr>
-                        <td>${food.id}</td>
                         <td>${food.name}</td>
+                        <td>${food.id}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].energy? food['nutrition-per-100g'].energy : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].energy? food['nutrition-per-100ml'].energy : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].protein? food['nutrition-per-100g'].protein : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].protein? food['nutrition-per-100ml'].protein : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['saturated-fat']? food['nutrition-per-100g']['saturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['saturated-fat']? food['nutrition-per-100ml']['saturated-fat'] : '-'}</td>
