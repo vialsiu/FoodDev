@@ -19,13 +19,13 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                             <th>Calcium (mg)</th>
                             <th>Vit E (mg)</th>
                             <th>Fat (g)</th>
-                            <th>Magnesium (mg)</th>
-                            <th>Tags</th>
+                            <th>Edit/Delete</th>
+                            <th>Special Tags</th>
                         </tr>`;
 
     jsonData.forEach(food => {
       htmlString += `<tr>
-                        <td id="names">${food.name}</td>
+                        <td class="names">${food.name}</td>
                         <td>${food.id}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].energy? food['nutrition-per-100g'].energy : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].energy? food['nutrition-per-100ml'].energy : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].protein? food['nutrition-per-100g'].protein : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].protein? food['nutrition-per-100ml'].protein : '-'}</td>
@@ -41,7 +41,10 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].calcium? food['nutrition-per-100g'].calcium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].calcium? food['nutrition-per-100ml'].calcium : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e']? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e']? food['nutrition-per-100ml']['vitamin-e'] : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat? food['nutrition-per-100ml'].fat : '-'}</td>
-                        <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].magnesium? food['nutrition-per-100g'].magnesium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].magnesium? food['nutrition-per-100ml'].magnesium : '-'}</td>`
+                        <td id="crudsymbols"><a class="button2" onclick="edit()">
+                        <i class="ri-pencil-fill"></i></a>
+                        <a class="button3" onclick="edit()">
+                        <i class="x">x</i></a></td>`
                         food.tags ? food.tags.forEach(tag =>{
                           switch (tag) {
                             case "grain":
@@ -84,7 +87,6 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                                           htmlString+= `<td class="tagslabel-lightpink">${tag}</td>`
                                           break;
                           }
-                     /*     htmlString+= `<td class="tagslabel">${tag}</td>`*/
                         }) : '';
                         `</tr>`;
     });
@@ -97,4 +99,3 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
   });
-

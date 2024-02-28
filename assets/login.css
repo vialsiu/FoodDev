@@ -234,6 +234,8 @@
 
 #main_body{
   background-color: rgb(190, 189, 187);
+  background:  linear-gradient(rgba(0, 0, 0, 0.177), rgba(0, 0, 0, 0.386)), url('fruits.jpg');
+ 
   color:#ffffff
 }
 
@@ -256,10 +258,19 @@ table{
 
 }
 
-#names{
+.names{
   color:#240606;
   background-color:rgba(128, 110, 110, 0.044);
   text-align:center;
+}
+
+.names:hover:nth-child(odd)
+{
+  color:green;
+}
+.names:hover:nth-child(even)
+{
+  color:rgb(207, 77, 13);
 }
 
 th, td {
@@ -268,17 +279,17 @@ th, td {
 }
 
 #nav{
-  background-color:#dbd7d3e8;
-  height: 10vh;  
+  display:flex;
+  justify-content:space-around;
+  background-color:#ffffff;
+  height: 15vh;  
+  align-items: center;
+  box-shadow: 0 0 5px 0 rgba(112, 111, 111, 0.8), 0 2px 4px 0 rgba(13, 9, 51, 0.2);
+  justify-content:space-evenly;
 }
-
-#spacer{
-  background-color:white;
-  height:20px;
-  align-items:center;
-  justify-content: center;
-  align-self: center;
-  align-content:center;
+.navsettings{
+  display:flex;
+  justify-content:space-between;
 }
 
 th {
@@ -297,13 +308,11 @@ tr:nth-child(even)
   border-bottom:1px solid rgba(0, 0, 0, 0.111);
 }
 
-#names:hover{
-  color:peru;
-}
-
 [class*="tagslabel"]
   {
   display:grid;
+  margin-top:1vh;
+  margin-right:5px;
   padding: 3px 6px;
   font-size: 15px;
   width:auto;
@@ -313,10 +322,10 @@ tr:nth-child(even)
   padding-right: 0px;
   padding-left: 0px;
   border-radius: 15px;
-  margin-bottom:2px;
+  margin-bottom:1vh;
   justify-content: center;
   text-align: center;
-  border: 2px solid rgb(175, 177, 178);
+  border: 2px solid rgba(94, 96, 97, 0.247);
 }
 
 .tagslabel-orange{
@@ -370,41 +379,82 @@ tr:nth-child(even)
 {
   display:flex;
   font-size: 6vh;
-  color: white;
-  text-align:center;
-  align-self:center;    
+  text-align:start;
   text-decoration: none;
   padding:0;
   max-width: 50vw;
+  background: linear-gradient(.25turn, #73dc78, 30%, rgb(243, 179, 75));
+  -webkit-background-clip: text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  font-weight:bold;
+  margin: auto;
+}
+.button_container{
+  display:list-item;
+  text-align:center;
+  margin: auto;
   justify-content: center;
-  padding-left:2.5%;
+  align-items:center;
+  display:flex;
+  float:left;
 }
 
 .button1{
+  color:#d5c457f1;
   display: inline-block;
   background-color: transparent;
   padding-left: 2.5vw;
   padding-right:15px;
   margin-top:30px;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 2vw;
   transition: transform 0.2s;
   text-decoration: none;
-  color:white;
 }
-
-.button1:hover{
-  color: rgb(155, 132, 122);
-  width:fit-content;
-  height:20px;
+.button1:hover,.button4:hover{
+  color: #d5c45790;
   transition: 0.2s;
   text-decoration:none;
 }
 
-.button_container{
-  align-items:center;
-  justify-content: center;
-  float:left;
+.button2
+{
+display:flexbox;
+background-color: transparent;
+align-items: center;
+justify-self: center;
+text-align: center;
+font-weight: bold;
+font-size: 2.5vh;
+transition: transform 0.2s;
+text-decoration: none;
+}
+
+.button3
+{
+  display: flexbox;
+  padding-left:1.5;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 3vh;
+  text-decoration: none;
+  color:#3a3a3a97;
+}
+
+.button4
+{
+  color:#d5c457f1;
+  display: inline-block;
+  margin-top:30px;
+  font-size: 3.4vw;
+  transition: transform 0.2s;
+  text-decoration: none;
+  align-items: center;
+  justify-self: center;
+  text-align: center;
+  transition: transform 0.2s;
+  text-decoration: none;
 }
 
 th{
@@ -413,6 +463,7 @@ th{
 
 .newclass{
 display: flex;
+justify-content:center;
 }
 
 #recordsfound{
@@ -434,4 +485,13 @@ display: flex;
   font-weight: 600;
   cursor: pointer;
   border: transparent;
+}
+
+.ri-pencil-fill{
+  color:rgb(149, 149, 149);
+  text-decoration:none;
+}
+
+.ri-pencil-fill:hover{
+
 }
