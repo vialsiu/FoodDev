@@ -206,11 +206,12 @@
 /* main css*/
 
 #main_body{
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(190, 189, 187);
   color:#ffffff
 }
 
 table{
+  margin-top:4vh;
   background-color:rgb(255, 255, 255);
   width: 96%;
   color: #2e2c2cc7;
@@ -240,8 +241,8 @@ th, td {
 }
 
 #nav{
-  background-color:#915b28e8;
-  height: 10vh;
+  background-color:#dbd7d3e8;
+  height: 10vh;  
 }
 
 #spacer{
@@ -341,11 +342,14 @@ tr:nth-child(even)
 {
   display: flex;
   font-size: 6vh;
-  justify-content: flex-end; /* Align content to the far right */
-  padding-right: 2.5vw;
   color: white;
-  align-items:center;
-  flex-direction:row
+  text-align:center;
+  align-self:center;    
+  text-decoration: none;
+  padding:0;
+  max-width: 50vw;
+  justify-content: space-between;
+  padding-left:2.5%;
 }
 
 .button1{
