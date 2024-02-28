@@ -229,7 +229,9 @@ table{
 }
 
 #names{
-  color:#240606
+  color:#240606;
+  background-color:rgba(128, 110, 110, 0.044);
+  text-align:center;
 }
 
 th, td {
@@ -238,7 +240,7 @@ th, td {
 }
 
 #nav{
-  background-color:#cfaf91e8;
+  background-color:#915b28e8;
   height: 10vh;
 }
 
@@ -266,11 +268,13 @@ tr:nth-child(even)
   background: white;
   border-bottom:1px solid rgba(0, 0, 0, 0.111);
 }
-td:hover{
+
+#names:hover{
   color:peru;
 }
 
-.tagslabel {
+[class*="tagslabel"]
+  {
   display:grid;
   padding: 3px 6px;
   font-size: 15px;
@@ -283,22 +287,93 @@ td:hover{
   border-radius: 15px;
   margin-bottom:2px;
   justify-content: center;
+  text-align: center;
+  border: 2px solid rgb(175, 177, 178);
+}
+
+.tagslabel-orange{
+  background-color: rgb(255, 157, 0);
+}
+.tagslabel-brown{
+  background-color: rgb(119, 96, 59);
+}
+.tagslabel-red{
+  background-color: rgb(167, 43, 34);
+}
+.tagslabel-pink{
+  background-color: rgb(167, 34, 160);
+}
+.tagslabel-darkgreen{
+  background-color: rgb(21, 93, 36);
+}
+.tagslabel-yellow{
+  background-color: rgb(223, 203, 57);
+}
+.tagslabel-purple{
+  background-color: rgb(168, 57, 223);
+}
+.tagslabel-darkbrown{
+  background-color: rgb(107, 37, 10);
+}
+.tagslabel-lightorange{
+  background-color: rgb(214, 169, 116);
+}
+.tagslabel-yellow{
+  background-color: rgb(223, 203, 57);
+}
+.tagslabel-pastelgreen{
+  background-color: rgb(143, 196, 148);
+}
+.tagslabel-blue{
+  background-color: rgb(94, 134, 208);
+}
+.tagslabel-lightgreen{
+  background-color: rgb(109, 152, 104);
+}
+.tagslabel-lightpink{
+  background-color: rgb(217, 156, 205);
 }
 
 #spacer_info{
   color:black;
 }
-span
+#vitamax
 {
-display:flex;
-font-size:6vh;
-justify-content:flex-end;
-padding-right: 2.5vw;
-color:white;
+  display: flex;
+  font-size: 6vh;
+  justify-content: flex-end; /* Align content to the far right */
+  padding-right: 2.5vw;
+  color: white;
+  align-items:center;
+  flex-direction:row
 }
 
-button{
+.button1{
   display: inline-block;
+  background-color: transparent;
+  padding-left: 2.5vw;
+  padding-right:15px;
+  margin-top:30px;
+  font-weight: bold;
+  font-size: 20px;
+  transition: transform 0.2s;
+  text-decoration: none;
+  color:white;
+}
 
-  background-color:none;
+.button1:hover{
+  color: rgb(155, 132, 122);
+  width:fit-content;
+  height:20px;
+  transition: 0.2s;
+  text-decoration:none;
+}
+
+.button_container{
+  align-items:center;
+  justify-content: center;
+}
+
+th{
+  background-color:#f1f1f1
 }

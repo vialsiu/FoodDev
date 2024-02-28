@@ -5,21 +5,21 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                         <tr id="labels_table">
                         <th>Name</th>
                             <th>ID</th>
-                            <th>Energy</th>
-                            <th>Protein</th>
-                            <th>Sat Fat</th>
-                            <th>Trans Fat</th>
-                            <th>Poly Fat</th>
-                            <th>Mono Fat</th>
-                            <th>Carb</th>
-                            <th>Sugars</th>
-                            <th>Fibre</th>
-                            <th>Sodium</th>
-                            <th>Potassium</th>
-                            <th>Calcium</th>
-                            <th>Vit E</th>
-                            <th>Fat</th>
-                            <th>Magnesium</th>
+                            <th>Energy (kJ)</th>
+                            <th>Protein (g)</th>
+                            <th>Saturated Fat (g)</th>
+                            <th>Trans Fat (g)</th>
+                            <th>Poly Fat (g)</th>
+                            <th>Mono Fat (g)</th>
+                            <th>Carbohydrate (g)</th>
+                            <th>Sugars (g)</th>
+                            <th>Fibre (g)</th>
+                            <th>Sodium (mg)</th>
+                            <th>Potassium (mg)</th>
+                            <th>Calcium (mg)</th>
+                            <th>Vit E (mg)</th>
+                            <th>Fat (g)</th>
+                            <th>Magnesium (mg)</th>
                             <th>Tags</th>
                         </tr>`;
 
@@ -43,10 +43,53 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat? food['nutrition-per-100ml'].fat : '-'}</td>
                         <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].magnesium? food['nutrition-per-100g'].magnesium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].magnesium? food['nutrition-per-100ml'].magnesium : '-'}</td>`
                         food.tags ? food.tags.forEach(tag =>{
-                          htmlString+= `<td class="tagslabel">${tag}</td>`
+                          switch (tag) {
+                            case "grain":
+                              htmlString+= `<td class="tagslabel-brown">${tag}</td>`
+                              break;
+                            case "carb":
+                              htmlString+= `<td class="tagslabel-red">${tag}</td>`
+                              break;
+                            case "snack":
+                              htmlString+= `<td class="tagslabel-purple">${tag}</td>`
+                              break;
+                            case "legume":
+                              htmlString+= `<td class="tagslabel-yellow">${tag}</td>`
+                              break;
+                            case "nut":
+                              htmlString+= `<td class="tagslabel-darkbrown">${tag}</td>`
+                              break;
+                            case "seed":
+                              htmlString+= `<td class="tagslabel-lightorange">${tag}</td>`
+                              break;
+                            case "fruit":
+                              htmlString+= `<td class="tagslabel-lightgreen">${tag}</td>`
+                              break;
+                              case "vegetable":
+                                htmlString+= `<td class="tagslabel-darkgreen">${tag}</td>`
+                                break;
+                                case "leafy green vegetable":
+                                  htmlString+= `<td class="tagslabel-blue">${tag}</td>`
+                                  break;
+                                  case "leafy green vegetable":
+                                    htmlString+= `<td class="tagslabel-pastelgreen">${tag}</td>`
+                                    break;
+                                    case "superfood":
+                                      htmlString+= `<td class="tagslabel-pink">${tag}</td>`
+                                      break;
+                                      case "bread":
+                                        htmlString+= `<td class="tagslabel-orange">${tag}</td>`
+                                        break;
+                                        case "supplement":
+                                          htmlString+= `<td class="tagslabel-lightpink">${tag}</td>`
+                                          break;
+                          }
+                     /*     htmlString+= `<td class="tagslabel">${tag}</td>`*/
                         }) : '';
                         `</tr>`;
     });
+
+
 
     htmlString += `</table><br>${jsonData.length} records found.`;
     document.getElementById('json-data').innerHTML = htmlString;
