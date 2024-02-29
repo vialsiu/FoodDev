@@ -10,23 +10,23 @@
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
         <link rel="stylesheet" href="assets/login.css">
-        <link rel="stylesheet" href="assets/login.js">
+        <script src="assets/login.js"></script>
     </head>
 <body id="index_body">
 
     <div class="container">
         <div class="formarea">
    <div class="login">
-      <form class="loginform" action="#">
+      <form class="loginform" id="loginform" action="#">
          <h1 class="logtitle">Log into VitaMAX!</h1>
 
          <div class="inputcontainer">
             <div class="boxarea">
-               <input class="userinput" type="email" placeholder="Email" required>
+               <input class="userinput" type="email" id="email" placeholder="Email" required>
                <i class="ri-mail-fill"></i>
             </div>
             <div class="boxarea">
-               <input class="userinput" type="password" placeholder="Password" required>
+               <input class="userinput" type="password" id="password" placeholder="Password" required>
                <i class="ri-lock-2-fill"></i>
             </div>
          </div>
@@ -47,29 +47,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-<!---  <div class="logincontain">
-        <div class="logform">
-            <div class="form login"></div>
-            <span class="title">VitaMAX Login</span>
-
-            <form action="#" onsubmit="return isFormValid">
-                <input type="text" placeholder="Enter your email" required>
-                <input type="submit">
-                <form action="#" onsubmit="return isFormValid()">
-                    <label for="name"> Name: </label>
-                    <input type="text" name="name" id="name"><label id="nameErrorMessage"></label> 
-                    <br>
-                    <br>
-                    <label for="address">Address:</label>
-                    <textarea rows="5" id="address" name="address"></textarea>
-                    <label id="addressErrorMessage"></label>
-                    <input type="submit">
-            </form>
-            </form>
-        </div>
-    </div>
--->

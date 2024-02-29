@@ -93,7 +93,7 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
 
 
 
-    htmlString += `</table><br><div id="recordsfound">(${jsonData.length} records found.)</div>`;
+    htmlString += `</table><br><div id="recordsfound">[${jsonData.length} records found.]</div>`;
     document.getElementById('json-data').innerHTML = htmlString;
   })
   .catch(error => {
