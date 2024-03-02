@@ -531,6 +531,33 @@ justify-content: flex-start;
   border: transparent;
 }
 
+.open-modal
+{
+  display: flexbox;
+  padding-left:1.5;
+  background-color: transparent;
+  font-weight: bold;
+  font-size: 2.5vh;
+  text-decoration: none;
+  color:#3a3a3a97;
+}
+
+.open-modal:hover{
+  color:#770a0a8c;
+}
+
+.data-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; /* Adjust the z-index as needed */
+}
+
 .ri-pencil-fill{
   color:rgb(149, 149, 149);
   text-decoration:none;

@@ -10,6 +10,7 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
     fetchedData = jsonData;
 
       renderTable();
+      initializeModal();
   })
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
@@ -58,7 +59,12 @@ htmlString += `<tr>
 <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat ? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat ? food['nutrition-per-100ml'].fat : '-'}</td>
 <td id="crudsymbols"><a class="button2" onclick="edit()">
 <i class="ri-pencil-fill"></i></a>
-<a class="button3"><i class="openModalBtn">x</i></a></td>`
+<button class="open-modal">X</button>
+          <dialog class="data-modal">
+            <div>Would you like to delete this row?</div>
+          <button class="close-modal">Close</button>
+          <button class="deleterow-modal">Yes</button>
+          </dialog></td>`
 food.tags ? food.tags.forEach(tag => {
 switch (tag) {
 case "grain":
@@ -104,7 +110,6 @@ break;
 }) : '';
 `</tr>`;
 counter++;
-// console.log(counter)
 });
 
 htmlString += `</table><br><div id="recordsfound">[${fetchedData.length} records found.]</div>`;
@@ -127,52 +132,32 @@ console.log(selectedId)
 }
 
 
+function initializeModal() {
+  const openButtons = document.querySelectorAll('.open-modal');
+  const closeButtons = document.querySelectorAll('.close-modal');
+  const modals = document.querySelectorAll('.data-modal');
+  const deleteRowButtons = document.querySelectorAll('.deleterow-modal')
 
-document.addEventListener("DOMContentLoaded", function() {
-  const openModalBtn = document.getElementById('openModalBtn');
-  const closeModalBtn = document.getElementById('closeModalBtn');
-  const modal = document.getElementById('myModal');
-
-  openModalBtn.addEventListener('click', function() {
-    modal.style.display = 'block';
+  openButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      modals[index].showModal();
+    });
   });
 
-  closeModalBtn.addEventListener('click', function() {
-    modal.style.display = 'none';
+  closeButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      modals[index].close();
+    });
   });
-
-  window.addEventListener('click', function(event) {
-    if (event.target == modal) {
-      modal.style.display = 'none';
-    }
+  deleteRowButtons.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      const selectedId = fetchedData[index].id;
+      deleteItem(selectedId);
+      modals[index].close();
+      initializeModal();
+    });
   });
-});
-
-
-
-
-
-
-// function openModal(item){
-//     console.log(item)
-//     document.getElementById("nitrition-form").innerHTML = item.id
-// }
-// var modal = document.getElementById("modal");
-
-// var btn = document.getElementById("myBtn");
-
-// var span = document.getElementsByClassName("close")[0];
-
-// // When the user clicks on <span> (x), close the modal
-// // span.onclick = function() {
-// //   modal.style.display = "none";
-// // }
-
-// window.onclick = function(event) {
-//   if (event.target == modal) {
-//     modal.style.display = "none";
-//   }
-// }
+}
 
 
 
@@ -204,10 +189,77 @@ function displaySearchedValue() {
     console.log(fetchedData);
   }
 
-  document.getElementById('tableid').addEventListener('click', function(event) {
-    if (event.target.classList.contains('deleteBtn')) {
-      var rowId = event.target.closest('tr').id;
-      console.log('Delete button clicked in row with ID:', rowId);
-    }
-  });
+  // document.getElementById('tableid').addEventListener('click', function(event) {
+  //   if (event.target.classList.contains('deleteBtn')) {
+  //     var rowId = event.target.closest('tr').id;
+  //     console.log('Delete button clicked in row with ID:', rowId);
+  //   }
+  // });
   
+  
+// const openButton = document.querySelector("[openmodal]")
+// const closeButton = document.querySelector("[closemodal]")
+// const modal = document.querySelector("[datamodal]")
+
+// openButton.addEventListener("click",() => {
+//   modal.showModal()
+// })
+
+// closeButton.addEventListener("click", () =>{
+// modal.close()
+// })
+
+
+
+
+
+// function openModal(item){
+//     console.log(item)
+//     document.getElementById("nitrition-form").innerHTML = item.id
+// }
+// var modal = document.getElementById("modal");
+
+// var btn = document.getElementById("myBtn");
+
+// var span = document.getElementsByClassName("close")[0];
+
+// // When the user clicks on <span> (x), close the modal
+// // span.onclick = function() {
+// //   modal.style.display = "none";
+// // }
+
+// window.onclick = function(event) {
+//   if (event.target == modal) {
+//     modal.style.display = "none";
+//   }
+// }
+
+
+// document.addEventListener("DOMContentLoaded", function() {
+//   const openModalBtn = document.getElementById('openModalBtn');
+//   const closeModalBtn = document.getElementById('closeModalBtn');
+//   const modal = document.getElementById('myModal');
+
+//   openModalBtn.addEventListener('click', function() {
+//     modal.style.display = 'block';
+//   });
+
+//   closeModalBtn.addEventListener('click', function() {
+//     modal.style.display = 'none';
+//   });
+
+//   window.addEventListener('click', function(event) {
+//     if (event.target == modal) {
+//       modal.style.display = 'none';
+//     }
+//   });
+// const deleteButtons = document.querySelectorAll('.delete-button');
+// deleteButtons.forEach(function(button) {
+//   button.addEventListener('click', function() {
+//     modal.style.display = 'block';
+//     // Here you can handle the delete functionality
+//     // You might want to have some logic to identify which row's delete button was clicked
+//     // and then proceed accordingly
+//   });
+// });
+// });
