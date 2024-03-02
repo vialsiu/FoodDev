@@ -10,28 +10,54 @@
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/3.5.0/remixicon.css">
         <link rel="stylesheet" href="assets/login.css">
-        <script src="assets/main.js"></script>
+        
     </head>
 <body id="main_body">
     <header id="nav">
+        <div class="menu">
         <div class="navsettings">
             <div class="newclass">
             <div id="vitamax">VitaMAX</div>
             </div>
         <div class="button_container">
         <a class="button1" href="../index.html" target="_self" alt="button" type="button">
-            <i class="ri-arrow-go-back-fill"></i>
+            <i class="ri-home-2-line"></i>
         </a>
+        <a data-bstarget="_blank" rel="noopener noreferrer"></a>
         <a class="button4" onclick="add()">
             <i class="">+</i>
         </a>
+        <input type="search" id="search" oninput="search(this.value)">
+        </div>
         </div>
     </div>
     </header>
         <div class="table-container" id="json-data-container">
-            <!-- For the table I made -->
         </div>
         <div id="json-data">
         </div>
-    </body>
-    </html>
+        <!-- <section class="modal hidden" id="modal">
+            <div class="flex">
+              <button class="btn-close">⨉</button>
+            </div>
+            <div id="nitrition-form">
+              <h3>Nutritional Information</h3>
+              <p>
+            this is the modal
+              </p>
+            </div>
+          </section>
+          <div class="overlay hidden"></div> -->
+
+
+          <button class="openModalBtn">Open Modal</button>
+
+ <div id="myModal" class="modal">
+  <div class="modal-content">
+    <span id="closeModalBtn">&times;</span>
+    <p>This is a modal!</p>
+  </div>
+</div>
+
+        </body>
+    </html><script src="assets/main.js"></script>

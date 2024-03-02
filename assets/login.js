@@ -6,9 +6,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
             const userEmail = "user@email.com";
-            const adminPassword = "1234";
+            const userPassword = "1234";
 
-            if (email === userEmail && password === adminPassword) {
+            if (email === userEmail && password === userPassword) {
                 window.location.href = "main.html";
             } else {
                 alert("Invalid email or password. Please try again.");
