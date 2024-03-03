@@ -257,7 +257,7 @@
 }
 
 table{
-  margin-top:4vh;
+  margin-top:2.5vh;
   background-color:rgb(255, 255, 255);
   width: 96%;
   color: #2e2c2cc7;
@@ -302,7 +302,7 @@ th, td {
   display:flex;
   width:100%;
   background-color:#ffffff;
-  height: 15vh;  
+  height: 18vh;  
   align-items: center;
   justify-content: left;
   box-shadow: 0 0 5px 0 rgba(112, 111, 111, 0.8), 0 2px 4px 0 rgba(13, 9, 51, 0.2);
@@ -412,7 +412,7 @@ tr:nth-child(even)
   display:flex;
   align-self: flex-end; 
   text-align:end;
-  margin-left:240%;
+  margin-left:200%;
   justify-content:flex-end;
   align-items:center;
   align-self: flex-end
@@ -703,8 +703,98 @@ button {
   display: "none";
 }
 
+.Nutrscheckbox-container{
+  padding-top:1vh;
+  color:rgb(226, 209, 50);
+}
+
+.FTagcheckbox-container {
+  color:rgb(187, 227, 157);
+}
+
+.Nutrscheckbox-container, .FTagcheckbox-container  {
+  padding-bottom:1vh;
+  display:flex;
+  background-color:rgba(179, 143, 79, 0.881);
+  justify-content:center;
+  font-weight:550;
+  font-size:2vh;
+}
+
+.filterby{
+  color:rgb(255, 255, 255);
+  font-size:2vh;
+  font-weight:650;
+  text-decoration:underline 2px #f0db66;
+}
+
+.filterby2{
+  color:rgb(255, 255, 255);
+  font-size:2vh;
+  font-weight:650;
+  text-decoration:underline 2px #f0db66;
+
+}
+
+ 
+        /* Hover effect */
+        hover input~.checkbox-container {
+            background-color: yellow;
+        }
+ 
+        /* Active effect */
+        input:active~checkbox-container {
+            background-color: red;
+        }
+ 
+        /* Checked effect */
+        input:checked~checkbox-container {
+            background-color: green;
+        }
+ 
+        /* Checkmark */
+        .checkbox-container::after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 7px;
+            top: 3px;
+            width: 6px;
+            height: 12px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+ 
+        /* Display checkmark when checked */
+        .main input:checked~.checkbox-container::after {
+            display: block;
+        }
+
+
+
+
+
+
 /*------------MEDIA Queries------------------*/
-@media screen and (max-width: 484px) {
+@media screen and (max-width: 375px){
+  .loginform {
+    position: relative;
+    margin-inline: 1.5rem;
+    background-color: rgba(240, 183, 183, 0.1);
+    border: 2px solid rgba(222, 174, 78, 0.7);
+    padding: 1rem 1.5rem;
+    border-radius: 1.5rem;
+    backdrop-filter: blur(8px);
+}
+input[placeholder] {
+  height: 2em;
+}
 
-
+input[type="text"], input[type="email"] {
+  width: 6%;
+  height: 2em;
+}
+.userinput {
+  width: 80%;
 }

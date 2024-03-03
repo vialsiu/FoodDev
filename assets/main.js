@@ -1,47 +1,136 @@
-const myModal = document.getElementById('myModal')
-const myInput = document.getElementById('myInput')
+let foods = [];
+let lastSortColumnName = "Name";
+let sortAscendingOrder = true;
+//!! checkboxes for nutritions and tags !!
+let nutritions = ['Energy', 'Protein', 'Sat Fat', 'Trans Fat', 'Poly Fat', 'Mono Fat', 'Carbohydrates', 'Sugars', 'Fibre', 'Sodium', 'Potassium', 'Calcium', 'Vit E', 'Fat', 'Magnesium'];
+let nutritionsCheckboxes = nutritions.sort();
+let foodTags = ['Grain', 'Carb', 'Snack', 'Legume', 'Nut', 'Seed', 'Fruit', 'Vegetable', 'Superfood', 'Leafy Green Vegetable', 'Bread', 'Supplement'];
+let foodTagsCheckboxes = foodTags.sort();
 
-let fetchedData;
+const myModal = document.getElementById('myModal');
+const myInput = document.getElementById('myInput');
+
 let counter=0;
-let searchValue = ""; 
+
+let searchValue = "";
+function search(value) {
+    searchValue = value;
+    displayTable(foods);
+}
+
+function displayNutrsCheckboxes() {
+    let htmlString = "<h1 class='filterby'>Filter by nutrition label:</h1>&nbsp";
+
+    nutritionsCheckboxes.forEach(nutrition => {
+        htmlString += `<label for="${nutrition}">${nutrition}:&nbsp&nbsp</label>
+                                <input id="${nutrition}" type="checkbox" checked="true" onclick="displayTable(foods)"/>&nbsp`;
+    });
+    document.getElementById("Nutrscheckbox-container").innerHTML = htmlString;
+}
+function displayFTagCheckboxes() {
+    let htmlString = "<h1 class='filterby2'>Delete tag:</h1>&nbsp&nbsp";
+
+    foodTagsCheckboxes.forEach(foodTag => {
+        htmlString += `<label for="${foodTag}">${foodTag}:&nbsp&nbsp</label>
+                                <input id="${foodTag}" value="${foodTag}" type="checkbox" checked="true" onclick="search(this.value)"/>&nbsp&nbsp`;
+    });
+    document.getElementById("FTagcheckbox-container").innerHTML = htmlString;
+}
 
 fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
   .then(response => response.json())
   .then(jsonData => {
-    fetchedData = jsonData;
-
-      renderTable();
+      foods = jsonData;
+      displayNutrsCheckboxes();
+      displayFTagCheckboxes();
+      displayTable(foods);
       initializeModal();
       initializeModal2();
   })
   .catch(error => {
-    console.error('There was a problem with the fetch operation:', error);
+      console.error('There was a problem with the fetch operation:', error);
   });
 
-  function renderTable(){
-    counter=0;
-    let htmlString = `<table id="tableid">
-    <tr id="labels_table">
-    <th>Name</th>
-    <th>ID</th>
-    <th>Energy (kJ)</th>
-    <th>Protein (g)</th>
-    <th>Saturated Fat (g)</th>
-    <th>Trans Fat (g)</th>
-    <th>Poly Fat (g)</th>
-    <th>Mono Fat (g)</th>
-    <th>Carbohydrate (g)</th>
-    <th>Sugars (g)</th>
-    <th>Fibre (g)</th>
-    <th>Sodium (mg)</th>
-    <th>Potassium (mg)</th>
-    <th>Calcium (mg)</th>
-    <th>Vit E (mg)</th>
-    <th>Fat (g)</th>
-    <th>Edit/Delete</th>
-    <th>Special Tags</th>
+  function displayTable(selectedFoods) {
+      counter=0;
+
+      let keys = Object.keys(foods[0]);
+
+      let htmlString = `<table>
+      <tr id="labels_table">
+      <th onclick=sort("Name")>Name `;
+      if (lastSortColumnName === 'Name') {
+          htmlString += sortAscendingOrder ? "▲" : "▼";
+      }
+      htmlString += `</th>
+
+      <th onclick=sort("ID")>ID`;
+      if (lastSortColumnName === 'ID') {
+          htmlString += sortAscendingOrder ? "▲" : "▼";
+      }
+      htmlString += `</th>`;
+
+      if (document.getElementById("Energy").checked) {
+          htmlString += `<th>Energy (kJ)</th>`;
+      }
+      
+      if (document.getElementById("Protein").checked) {  
+          htmlString += `<th>Protein (g)</th>`;
+      }
+      
+      if (document.getElementById("Sat Fat").checked) {
+          htmlString += `<th>Saturated Fat (g)</th>`;
+      }
+      
+      if (document.getElementById("Trans Fat").checked) {
+          htmlString += `<th>Trans Fat (g)</th>`;
+      }
+      
+      if (document.getElementById("Poly Fat").checked) {
+          htmlString += `<th>Poly Fat (g)</th>`;
+      }
+      
+      if (document.getElementById("Mono Fat").checked) {
+          htmlString += `<th>Mono Fat (g)</th>`;
+      }
+      
+      if (document.getElementById("Carbohydrates").checked) {
+          htmlString += `<th>Carbohydrate (g)</th>`;
+      }
+      
+      if (document.getElementById("Sugars").checked) {
+          htmlString += `<th>Sugars (g)</th>`;
+      }
+      
+      if (document.getElementById("Fibre").checked) {
+          htmlString += `<th>Fibre (g)</th>`;
+      }
+      
+      if (document.getElementById("Sodium").checked) {
+          htmlString += `<th>Sodium (mg)</th>`;
+      }
+      
+      if (document.getElementById("Potassium").checked) {
+          htmlString += `<th>Potassium (mg)</th>`;
+      }
+      
+      if (document.getElementById("Calcium").checked) {
+          htmlString += `<th>Calcium (mg)</th>`;
+      }
+      
+      if (document.getElementById("Vit E").checked) {
+          htmlString += `<th>Vit E (mg)</th>`;
+      }
+      
+      if (document.getElementById("Fat").checked) {
+          htmlString += `<th>Fat (g)</th>`;
+      }
+      
+      htmlString += `<th>Edit/Delete</th>
+      <th>Special Tags</th>
 </tr>`;
-fetchedData.forEach(food => {
+      
+selectedFoods.forEach(food => {
 htmlString += `<tr>
 <td class="names">${food.name}
 <dialog class="modalnutrition">
@@ -78,99 +167,241 @@ htmlString += `<tr>
 <h2 class="nutriinfo">Vitamin E (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e'] ? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e'] ? food['nutrition-per-100ml']['vitamin-e'] : '0'}mg</h2>
 <h2 class="nutriinfo">Vitamin K (μg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-k'] ? food['nutrition-per-100g']['vitamin-k'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-k'] ? food['nutrition-per-100ml']['vitamin-k'] : '0'}μg</h2>
 <h2 class="nutriinfo">Manganese (mg):  ${food['nutrition-per-100g'] && food['nutrition-per-100g'].magnesium ? food['nutrition-per-100g'].magnesium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].magnesium ? food['nutrition-per-100ml'].magnesium : '0'}mg</h2>
-</dialog></td>`
+</dialog></td>`;
 
 
 // I had <button class="closeit">CLOSE</button> - didn't work so left it out
 
-htmlString += `<td>${food.id}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].energy ? food['nutrition-per-100g'].energy : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].energy ? food['nutrition-per-100ml'].energy : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].protein ? food['nutrition-per-100g'].protein : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].protein ? food['nutrition-per-100ml'].protein : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['saturated-fat'] ? food['nutrition-per-100g']['saturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['saturated-fat'] ? food['nutrition-per-100ml']['saturated-fat'] : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['trans-fat'] ? food['nutrition-per-100g']['trans-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['trans-fat'] ? food['nutrition-per-100ml']['trans-fat'] : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['polyunsaturated-fat'] ? food['nutrition-per-100g']['polyunsaturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['polyunsaturated-fat'] ? food['nutrition-per-100ml']['polyunsaturated-fat'] : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['mononunsaturated-fat'] ? food['nutrition-per-100g']['monounsaturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['monounsaturated-fat'] ? food['nutrition-per-100ml']['monounsaturated-fat'] : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].carbohydrate ? food['nutrition-per-100g'].carbohydrate : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].carbohydrate ? food['nutrition-per-100ml'].carbohydrate : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].sugars ? food['nutrition-per-100g'].sugars : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].sugars ? food['nutrition-per-100ml'].sugars : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['dietary-fibre'] ? food['nutrition-per-100g']['dietary-fibre'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['dietary-fibre'] ? food['nutrition-per-100ml']['dietary-fibre'] : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].sodium ? food['nutrition-per-100g'].sodium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].sodium ? food['nutrition-per-100ml'].sodium : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].potassium ? food['nutrition-per-100g'].potassium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].potassium ? food['nutrition-per-100ml'].potassium : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].calcium ? food['nutrition-per-100g'].calcium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].calcium ? food['nutrition-per-100ml'].calcium : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e'] ? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e'] ? food['nutrition-per-100ml']['vitamin-e'] : '-'}</td>
-<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat ? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat ? food['nutrition-per-100ml'].fat : '-'}</td>
-<td id="crudsymbols"><a class="button2" onclick="edit()">
+htmlString += `<td>${food.id}</td>`;
+if (document.getElementById("Energy").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].energy ? food['nutrition-per-100g'].energy : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].energy ? food['nutrition-per-100ml'].energy : '-'}</td>`;
+}
+if (document.getElementById("Protein").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].protein ? food['nutrition-per-100g'].protein : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].protein ? food['nutrition-per-100ml'].protein : '-'}</td>`;
+}
+if (document.getElementById("Sat Fat").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['saturated-fat'] ? food['nutrition-per-100g']['saturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['saturated-fat'] ? food['nutrition-per-100ml']['saturated-fat'] : '-'}</td>`;
+}
+if (document.getElementById("Trans Fat").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['trans-fat'] ? food['nutrition-per-100g']['trans-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['trans-fat'] ? food['nutrition-per-100ml']['trans-fat'] : '-'}</td>`;
+}
+if (document.getElementById("Poly Fat").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['polyunsaturated-fat'] ? food['nutrition-per-100g']['polyunsaturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['polyunsaturated-fat'] ? food['nutrition-per-100ml']['polyunsaturated-fat'] : '-'}</td>`;
+}
+if (document.getElementById("Mono Fat").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['mononunsaturated-fat'] ? food['nutrition-per-100g']['monounsaturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['monounsaturated-fat'] ? food['nutrition-per-100ml']['monounsaturated-fat'] : '-'}</td>`;
+}
+if (document.getElementById("Carbohydrates").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].carbohydrate ? food['nutrition-per-100g'].carbohydrate : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].carbohydrate ? food['nutrition-per-100ml'].carbohydrate : '-'}</td>`;
+}
+if (document.getElementById("Sugars").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].sugars ? food['nutrition-per-100g'].sugars : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].sugars ? food['nutrition-per-100ml'].sugars : '-'}</td>`;
+}
+if (document.getElementById("Fibre").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['dietary-fibre'] ? food['nutrition-per-100g']['dietary-fibre'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['dietary-fibre'] ? food['nutrition-per-100ml']['dietary-fibre'] : '-'}</td>`;
+}
+if (document.getElementById("Sodium").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].sodium ? food['nutrition-per-100g'].sodium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].sodium ? food['nutrition-per-100ml'].sodium : '-'}</td>`;
+}
+if (document.getElementById("Potassium").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].potassium ? food['nutrition-per-100g'].potassium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].potassium ? food['nutrition-per-100ml'].potassium : '-'}</td>`;
+}
+if (document.getElementById("Calcium").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].calcium ? food['nutrition-per-100g'].calcium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].calcium ? food['nutrition-per-100ml'].calcium : '-'}</td>`;
+}
+if (document.getElementById("Vit E").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e'] ? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e'] ? food['nutrition-per-100ml']['vitamin-e'] : '-'}</td>`;
+}
+if (document.getElementById("Fat").checked) {
+    htmlString += `<td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat ? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat ? food['nutrition-per-100ml'].fat : '-'}</td>`;
+}
+htmlString += `<td id="crudsymbols"><a class="button2" onclick="edit()">
 <i class="ri-pencil-fill"></i></a>
 <button class="open-modal">X</button>
           <dialog class="data-modal">
             <h1>Would you like to delete this row?</h1>
           <button class="close-modal">Close</button>
           <button class="deleterow-modal">Confirm</button>
-          </dialog></td>`
+          </dialog></td>`;
 food.tags ? food.tags.forEach(tag => {
-switch (tag) {
-case "grain":
-htmlString += `<td class="tagslabel-brown" onclick="document.getElementById('id01').style.display='block'">${tag}</td>`
-break;
-case "carb":
-htmlString += `<td class="tagslabel-red" onclick="modal2">${tag}</td>`
-break;
-case "snack":
-htmlString += `<td class="tagslabel-purple" onclick="modal2">${tag}</td>`
-break;
-case "legume":
-htmlString += `<td class="tagslabel-yellow" onclick="modal2">${tag}</td>`
-break;
-case "nut":
-htmlString += `<td class="tagslabel-darkbrown" onclick="modal2">${tag}</td>`
-break;
-case "seed":
-htmlString += `<td class="tagslabel-lightorange" onclick="modal2">${tag}</td>`
-break;
-case "fruit":
-htmlString += `<td class="tagslabel-lightgreen">${tag}</td>`
-break;
-case "vegetable":
-htmlString += `<td class="tagslabel-darkgreen" onclick="modal2">${tag}</td>`
-break;
-case "leafy green vegetable":
-htmlString += `<td class="tagslabel-blue" onclick="modal2">${tag}</td>`
-break;
-case "leafy green vegetable":
-htmlString += `<td class="tagslabel-pastelgreen" onclick="modal2">${tag}</td>`
-break;
-case "superfood":
-htmlString += `<td class="tagslabel-pink" onclick="modal2">${tag}</td>`
-break;
-case "bread":
-htmlString += `<td class="tagslabel-orange" onclick="modal2">${tag}</td>`
-break;
-case "supplement":
-htmlString += `<td class="tagslabel-lightpink" onclick="modal2">${tag}</td>`
-break;
-}
-}) : '';
+    if (document.getElementById("Grain").checked) {
+        if (tag === "grain") {
+            htmlString += `<td class="tagslabel-brown" onclick="document.getElementById('id01').style.display='block'">${tag}</td>`
+        }
+    }
+    if (document.getElementById("Carb").checked) {
+        if (tag === "carb") {
+            htmlString += `<td class="tagslabel-red" onclick="modal2">${tag}</td>`
+        }
+    }
+    if (document.getElementById("Snack").checked) {
+        if (tag === "snack") {
+            htmlString += `<td class="tagslabel-purple" onclick="modal2">${tag}</td>`
+        }
+    }
+    if (document.getElementById("Legume").checked) {
+        if (tag === "legume") {
+            htmlString += `<td class="tagslabel-yellow" onclick="modal2">${tag}</td>`
+        }
+    }
+    if (document.getElementById("Nut").checked) {
+        if (tag === "nut") {                        
+            htmlString += `<td class="tagslabel-darkbrown" onclick="modal2">${tag}</td>`
+        }                        
+    }                                                                        
+    if (document.getElementById("Seed").checked) {
+        if (tag === "seed") {                        
+            htmlString += `<td class="tagslabel-lightorange" onclick="modal2">${tag}</td>`
+        }                       
+    }                                                
+    if (document.getElementById("Fruit").checked) {
+        if (tag === "fruit") {                        
+            htmlString += `<td class="tagslabel-lightgreen">${tag}</td>`
+        }                                                
+    }                                                
+    if (document.getElementById("Vegetable").checked) {
+        if (tag === "vegetable") {                        
+            htmlString += `<td class="tagslabel-darkgreen" onclick="modal2">${tag}</td>`
+        }                                               
+    }                                                
+    if (document.getElementById("Leafy Green Vegetable").checked) {
+        if (tag === "leafy green vegetable") {                       
+            htmlString += `<td class="tagslabel-blue" onclick="modal2">${tag}</td>`
+        }                                                
+    }                                                
+    if (document.getElementById("Leafy Green Vegetable").checked) {
+        if (tag === "leafy green vegetable") {
+            htmlString += `<td class="tagslabel-pastelgreen" onclick="modal2">${tag}</td>`
+        }
+    }                                                                                                                        
+    if (document.getElementById("Superfood").checked) {
+        if (tag === "superfood") {
+            htmlString += `<td class="tagslabel-pink" onclick="modal2">${tag}</td>`
+        }
+    }
+    if (document.getElementById("Bread").checked) {
+        if (tag === "bread") {
+            htmlString += `<td class="tagslabel-orange" onclick="modal2">${tag}</td>`
+        }
+    }
+    if (document.getElementById("Supplement").checked) {
+        if (tag === "supplement") {
+            htmlString += `<td class="tagslabel-lightpink" onclick="modal2">${tag}</td>`
+        }
+    }                                                                                                                                                                                                                                                                                                                                              
+}) : '';                    
 `</tr>`;
+//console.log(food);
+//console.log(food.name);
+//console.log(food.id);
+//console.log('nutrition-per-100g:', food['nutrition-per-100g']);
+//console.log('nutrition-per-100ml:', food['nutrition-per-100ml']);
+//console.log('nutrition-per-100g:', food['nutrition-per-100g'], 'nutrition-per-100ml:', food['nutrition-per-100ml']);
+//console.log(food.tags);
 counter++;
 });
 
-htmlString += `</table><br><div id="recordsfound">[${fetchedData.length} records found.]</div>`;
+htmlString += `</table><br><div id="recordsfound">[${selectedFoods.length} records found.]</div>`;
 document.getElementById('json-data').innerHTML = htmlString;
 }
 
+function sort(key)
+{
+    if (lastSortColumnName === key)
+    {
+        sortAscendingOrder = !sortAscendingOrder;
+    } else
+    {
+        lastSortColumnName = key;
+        sortAscendingOrder = true;
+    }
+    //sort array
+    if (sortAscendingOrder)
+    {
+        //ascending order
+        foods.sort((a, b) => a[key] < b[key] ? -1 : 1);
+    } else
+    {
+        //descending order
+        foods.sort((a, b) => a[key] < b[key] ? 1 : -1);
+    }
+
+    //display array
+    displayTable(foods);
+}
+
+function addFood() {
+    const foodName = document.getElementById("foodName").value;
+    const foodID = document.getElementById("foodID").value;
+
+    //make sure only alphabet letters
+    if (!foodName.match(/^[A-Za-z]+$/) || !foodID.match(/^[A-Za-z-]+$/)) {
+        alert("please only alphabetic characters !");
+        return;
+    }
+    
+    //make sure none of the boxes are empty
+    if (foodName && foodID) {
+        //create newFood object
+        const newFood = {name: foodName, id: foodID};
+
+    //add new input to table
+    foods.push(newFood);
+
+    displayTable(foods);
+
+    //empty boxes
+    document.getElementById("foodName").value = "";
+    document.getElementById("foodID").value = "";
+    }
+    else { //doesnt work lmaoo
+        alert("please enter both name and id !");
+    }
+}
+
+function modifyFood() {
+    const modifyName = document.getElementById("modifyName").value;
+    const modifyID = document.getElementById("modifyID").value;
+
+    if (!modifyName.match(/^[A-Za-z]+$/) || !modifyID.match(/^[A-Za-z-]+$/)) {
+        alert("please only alphabetic characters !");
+        return;
+    }
+    
+    //make sure food or id exists
+    const existingFood = foods.find(food => food.name === modifyName || food.id === modifyID);
+    if (!existingFood) {
+        alert("food with the entered name or id does not exist ;(");
+        return;
+    }
+
+    // Update the existing food item
+    if (modifyName) {
+        existingFood.name = modifyName;
+    }
+    if (modifyID) {
+        existingFood.id = modifyID;
+    }
+
+    // Display the updated table
+    displayTable(foods);
+
+    // Clear input fields
+    document.getElementById("modifyName").value = "";
+    document.getElementById("modifyID").value = "";
+}
 
 function deleteItem(selectedId) {
-console.log(selectedId)
-  let selectedIndex
-    fetchedData.forEach((food, index) => 
+    console.log(selectedId);
+    let selectedIndex;
+    foods.forEach((food, index) => 
     {
-        if(food.id === selectedId)
-        {
-            selectedIndex = index
+        if(food.id === selectedId) {
+            selectedIndex = index;
         }
-    })
-
-    fetchedData.splice(selectedIndex, 1)
-    renderTable();
+    });
+    foods.splice(selectedIndex, 1);
+    displayTable(foods);
 }
 
 
@@ -178,7 +409,7 @@ function initializeModal() {
   const openButtons = document.querySelectorAll('.open-modal');
   const closeButtons = document.querySelectorAll('.close-modal');
   const modals = document.querySelectorAll('.data-modal');
-  const deleteRowButtons = document.querySelectorAll('.deleterow-modal')
+  const deleteRowButtons = document.querySelectorAll('.deleterow-modal');
 
   openButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
@@ -193,7 +424,7 @@ function initializeModal() {
   });
   deleteRowButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
-      const selectedId = fetchedData[index].id;
+      const selectedId = foods[index].id;
       deleteItem(selectedId);
       modals[index].close();
       initializeModal();
@@ -255,7 +486,7 @@ function initializeModal3() {
   });
 }
 
-initializeModal3(); 
+initializeModal3();
 
 
 
@@ -347,8 +578,8 @@ initializeModal3();
   //     console.log('Delete button clicked in row with ID:', rowId);
   //   }
   // });
-  
-  
+
+
 // const openButton = document.querySelector("[openmodal]")
 // const closeButton = document.querySelector("[closemodal]")
 // const modal = document.querySelector("[datamodal]")
@@ -409,9 +640,6 @@ initializeModal3();
 // deleteButtons.forEach(function(button) {
 //   button.addEventListener('click', function() {
 //     modal.style.display = 'block';
-//     // Here you can handle the delete functionality
-//     // You might want to have some logic to identify which row's delete button was clicked
-//     // and then proceed accordingly
 //   });
 // });
 // });

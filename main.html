@@ -17,7 +17,7 @@
         <div class="menu">
         <div class="navsettings">
             <div class="newclass">
-            <div id="vitamax">VitaMAX</div>
+                <a id="vitamax" href="../index.html" target="_self">VitaMAX</a>
             </div>
         <div class="button_container">
         <a class="button1" href="../index.html" target="_self" alt="button" type="button">
@@ -31,13 +31,34 @@
         </div>
         </div>
     </div>
-    </header>
-        <div class="table-container" id="json-data-container">
-        </div>
-        <div id="json-data">
-        </div>
-        <dialog class="addmodal">
-          <h1>Would you like to add a food item? (Press esc.)</h1>
-        </dialog>
-        </body>
+</header>
+    <div class="Nutrscheckbox-container" id="Nutrscheckbox-container"></div>
+    <div class="FTagcheckbox-container" id="FTagcheckbox-container"></div>
+    <div class="table-container" id="json-data-container">
+    </div>
+    <div id="json-data">
+    </div>
+    <fieldset>
+        <legend> Add Food !! </legend><br>
+        <label for="foodName">Name:</label>
+        <input type="text" id="foodName" required pattern="[a-zA-Z]+" title="only alphabetic characters !"/>
+        <label for="foodID">ID:</label>
+        <input type="text" id="foodID" required pattern="[a-zA-Z-]+" title="only alphabetic characters !"/>
+        <button onclick="addFood()">ADD c:</button>
+    </fieldset>
+    <br>
+    <fieldset>
+        <legend> Modify Food !! </legend><br>
+        <label for="modifyName">Name:</label>
+        <input type="text" id="modifyName" required pattern="[a-zA-Z]+" title="only alphabetic characters !"/>
+        <label for="modifyID">ID:</label>
+        <input type="text" id="modifyID" required pattern="[a-zA-Z-]+" title="only alphabetic characters !"/>
+
+        <button onclick="modifyFood()">MODIFY c:</button>
+    </fieldset>
+    <br>
+    <dialog class="addmodal">
+      <h1>Would you like to add a food item? (Press esc.)</h1>
+    </dialog>
+    </body>
     </html><script src="assets/main.js"></script>
