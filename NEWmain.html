@@ -38,19 +38,31 @@
         </div>
         <div id="json-data">
         </div>
-        <fieldset>
-            <legend> Add Food !! </legend><br/>
-            <label for="foodName">Name:</label>
-            <input type="text" id="foodName" required pattern="[a-zA-Z]+" title="only alphabetic characters !"/>
+        <dialog class="addmodal">
+            <form id="addFoodForm" onsubmit="addFood(); return false;">
+                <h1> Add Food !! </h1><br/>
+                <label for="foodName">Name: </label>
+                <input type="text" id="foodName" required pattern="[a-zA-Z]+" title="only alphabetic characters !"/>
             
-            <label for="foodID">ID:</label>
-            <input type="text" id="foodID" required pattern="[a-zA-Z-]+" title="only alphabetic characters !"/>
+                <label for="foodID">ID: </label>
+                <input type="text" id="foodID" required pattern="[a-zA-Z-]+" title="only alphabetic characters !"/>
 
-            <button onclick="addFood()">ADD c:</button>
-        </fieldset>
-        </br>
+                <button type="submit">ADD c:</button>
+            </form>
+        </dialog>
+        <!-- <dialog class="modifymodal"> doesnt work yet lmao
+            <form id="modifyFoodForm" onsubmit="modifyFood(); return false;">
+                <h1> Modify Food !! </h1><br/>
+                <label for="modifyName">Name: </label>
+                <input type="text" id="modifyName" required pattern="[a-zA-Z]+" title="only alphabetic characters !"/>
         
-        <fieldset>
+                <label for="modifyID">ID: </label>
+                <input type="text" id="modifyID" required pattern="[a-zA-Z-]+" title="only alphabetic characters !"/>
+        
+                <button type="submit">MODIFY c:</button>
+            </form>
+        </dialog> -->
+        <!-- <fieldset>
             <legend> Modify Food !! </legend><br/>
             <label for="modifyName">Name:</label>
             <input type="text" id="modifyName" required pattern="[a-zA-Z]+" title="only alphabetic characters !"/>
@@ -59,10 +71,10 @@
             <input type="text" id="modifyID" required pattern="[a-zA-Z-]+" title="only alphabetic characters !"/>
 
             <button onclick="modifyFood()">MODIFY c:</button>
-        </fieldset>
-        <br/>
-        <dialog class="addmodal">
+        </fieldset> 
+        <br/> -->
+        <!--<dialog class="addmodal">
           <h1>Would you like to add a food item? (Press esc.)</h1>
-        </dialog>
+        </dialog> -->
         </body>
     </html><script src="newMAINJS.js" type="text/javascript"></script>
