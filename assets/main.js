@@ -102,9 +102,9 @@ htmlString += `<td>${food.id}</td>
 <i class="ri-pencil-fill"></i></a>
 <button class="open-modal">X</button>
           <dialog class="data-modal">
-            <div>Would you like to delete this row?</div>
+            <h1>Would you like to delete this row?</h1>
           <button class="close-modal">Close</button>
-          <button class="deleterow-modal">Yes</button>
+          <button class="deleterow-modal">Confirm</button>
           </dialog></td>`
 food.tags ? food.tags.forEach(tag => {
 switch (tag) {
@@ -199,22 +199,22 @@ function initializeModal() {
       initializeModal();
     });
   });
-  const opens = document.querySelectorAll('.names');
-  const closethemodal = document.querySelectorAll('.closeit');
-  const modalnutri = document.querySelectorAll('.modalnutrition');
+  // const opens = document.querySelectorAll('.names');
+  // const closethemodal = document.querySelectorAll('.closeit');
+  // const modalnutri = document.querySelectorAll('.modalnutrition');
 
-  opens.forEach((button, index) => {
-    button.addEventListener('click', () => {
-      modalnutri[index].showModal();
-    });
-  });
+  // opens.forEach((button, index) => {
+  //   button.addEventListener('click', () => {
+  //     modalnutri[index].showModal();
+  //   });
+  // });
 
-  closethemodal.forEach((button, index) => {
-    button.addEventListener('click', () => {
-      modalnutri[index].close();
-      initializeModal2();
-    });
-  });
+  // closethemodal.forEach((button, index) => {
+  //   button.addEventListener('click', () => {
+  //     modalnutri[index].close();
+  //     initializeModal2();
+  //   });
+  // });
 }
 
 
@@ -236,6 +236,27 @@ function initializeModal2(){
     });
   });
 }
+
+// HERE IS THE MODAL FOR ADDING LOL 
+function openAddModal() {
+  const addModal = document.querySelector('.addmodal');
+  addModal.showModal();
+}
+
+function initializeModal3() {
+  const addingOpenButtons = document.querySelectorAll('.adding');
+  const addModals = document.querySelectorAll('.addmodal');
+
+  addingOpenButtons.forEach(button => {
+      button.addEventListener('click', () => {
+          const index = Array.from(addingOpenButtons).indexOf(button);
+          addModals[index].showModal();
+      });
+  });
+}
+
+initializeModal3(); 
+
 
 
 

@@ -436,7 +436,7 @@ tr:nth-child(even)
   border-radius: 15px;
   padding-left:12%;
   height:4vh;
-  border: 3.5px solid #b1b1b1f1;
+  border: 5px solid #b1b1b1f1;
 }
 
 
@@ -562,6 +562,43 @@ justify-content: flex-start;
   z-index: 1000; 
   border:2px solid #888;
 }
+.addmodal{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000; 
+  border:2px solid #888;
+
+}
+
+.deleterow-modal,.close-modal{
+  margin-top:8vh;
+  height: 2.5vh;
+  font-size: 2vh;
+  width:5vw;
+  text-align:center;
+  color: rgb(0, 0, 0);
+  border-radius: 12px; 
+  border: 2px solid grey;
+}
+
+.close-modal{
+  background-color:#c8907df1;
+
+}
+
+.deleterow-modal{
+  margin-left: 10vw;
+  background-color:#9dc87df1;
+
+}
+
+
 .modalnutrition{
   position: fixed;
   top: 50%;
