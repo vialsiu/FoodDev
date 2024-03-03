@@ -1,4 +1,4 @@
-let foods = [];
+let fetchedData = [];
 let lastSortColumnName = "Name";
 let sortAscendingOrder = true;
 //!! checkboxes for nutritions and tags !!
@@ -15,7 +15,7 @@ let counter=0;
 let searchValue = "";
 function search(value) {
     searchValue = value;
-    displayTable(foods);
+    renderTable(fetchedData);
 }
 
 function displayNutrsCheckboxes() {
@@ -23,7 +23,7 @@ function displayNutrsCheckboxes() {
 
     nutritionsCheckboxes.forEach(nutrition => {
         htmlString += `<label for="${nutrition}">${nutrition}</label>
-                                <input id="${nutrition}" type="checkbox" checked="true" onclick="displayTable(foods)"/>`;
+                                <input id="${nutrition}" type="checkbox" checked="true" onclick="renderTable(fetchedData)"/>`;
     });
     document.getElementById("Nutrscheckbox-container").innerHTML = htmlString;
 }
@@ -40,10 +40,10 @@ function displayFTagCheckboxes() {
 fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
   .then(response => response.json())
   .then(jsonData => {
-      foods = jsonData;
+      fetchedData = jsonData;
       displayNutrsCheckboxes();
       displayFTagCheckboxes();
-      displayTable(foods);
+      renderTable(fetchedData);
       initializeModal();
       initializeModal2();
   })
@@ -51,10 +51,10 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
       console.error('There was a problem with the fetch operation:', error);
   });
 
-  function displayTable(selectedFoods) {
+  function renderTable(selectedFoods) {
       counter=0;
     
-      let keys = Object.keys(foods[0]);
+      let keys = Object.keys(fetchedData[0]);
 
       let htmlString = `<table>
       <tr id="labels_table">
@@ -319,15 +319,15 @@ function sort(key)
     if (sortAscendingOrder)
     {
         //ascending order
-        foods.sort((a, b) => a[key] < b[key] ? -1 : 1);
+        fetchedData.sort((a, b) => a[key] < b[key] ? -1 : 1);
     } else
     {
         //descending order
-        foods.sort((a, b) => a[key] < b[key] ? 1 : -1);
+        fetchedData.sort((a, b) => a[key] < b[key] ? 1 : -1);
     }
 
     //display array
-    displayTable(foods);
+    renderTable(fetchedData);
 }
 
 function addFood() {
@@ -346,13 +346,17 @@ function addFood() {
         const newFood = {name: foodName, id: foodID};
 
     //add new input to table
-    foods.push(newFood);
+    fetchedData.push(newFood);
 
-    displayTable(foods);
+    renderTable(fetchedData);
 
     //empty boxes
     document.getElementById("foodName").value = "";
     document.getElementById("foodID").value = "";
+    
+    //close modal
+    const addModal = document.querySelector('.addmodal');
+    addModal.close();
     }
     else { //doesnt work lmaoo
         alert("please enter both name and id !");
@@ -369,7 +373,7 @@ function modifyFood() {
     }
     
     //make sure food or id exists
-    const existingFood = foods.find(food => food.name === modifyName || food.id === modifyID);
+    const existingFood = fetchedData.find(food => food.name === modifyName || food.id === modifyID);
     if (!existingFood) {
         alert("food with the entered name or id does not exist ;(");
         return;
@@ -384,32 +388,36 @@ function modifyFood() {
     }
 
     // Display the updated table
-    displayTable(foods);
+    renderTable(fetchedData);
 
     // Clear input fields
     document.getElementById("modifyName").value = "";
     document.getElementById("modifyID").value = "";
+    
+//    const modifyModal = document.querySelector('.modifymodal');
+//    modifyModal.close();
 }
 
 function deleteItem(selectedId) {
-    console.log(selectedId);
-    let selectedIndex;
-    foods.forEach((food, index) => 
+console.log(selectedId);
+  let selectedIndex;
+    fetchedData.forEach((food, index) => 
     {
         if(food.id === selectedId) {
             selectedIndex = index;
         }
     });
-    foods.splice(selectedIndex, 1);
-    displayTable(foods);
+    fetchedData.splice(selectedIndex, 1);
+    renderTable(fetchedData);
 }
+
 
 
 function initializeModal() {
   const openButtons = document.querySelectorAll('.open-modal');
   const closeButtons = document.querySelectorAll('.close-modal');
   const modals = document.querySelectorAll('.data-modal');
-  const deleteRowButtons = document.querySelectorAll('.deleterow-modal');
+  const deleteRowButtons = document.querySelectorAll('.deleterow-modal')
 
   openButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
@@ -424,7 +432,7 @@ function initializeModal() {
   });
   deleteRowButtons.forEach((button, index) => {
     button.addEventListener('click', () => {
-      const selectedId = foods[index].id;
+      const selectedId = fetchedData[index].id;
       deleteItem(selectedId);
       modals[index].close();
       initializeModal();
@@ -480,15 +488,31 @@ function initializeModal3() {
 
   addingOpenButtons.forEach(button => {
       button.addEventListener('click', () => {
-          const index = Array.from(addingOpenButtons).indexOf(button);
+          let index = Array.from(addingOpenButtons).indexOf(button);
           addModals[index].showModal();
       });
   });
 }
-
 initializeModal3(); 
 
-
+//function openModifyModal() { doesnt work lmao
+//    const modifyModal = document.querySelector('.modifymodal');
+//    modifyModal.showModal();
+//}
+//
+//function initializeModal4() {
+//    const modifyOpenButtons = document.querySelectorAll('.ri-pencil-fill');
+//    const modifyModals = document.querySelectorAll('.modifymodel');
+//    
+//    modifyOpenButtons.forEach(button => {
+////        button.addEventListener('click', openModifyModal);
+//       button.addEventListener('click', () => {
+//          index = Array.from(modifyOpenButtons).indexOf(button);
+//          modifyModals[index].showModal();
+//      });
+//    });
+//}
+//initializeModal4();
 
 
 //WIP - SEARCH
