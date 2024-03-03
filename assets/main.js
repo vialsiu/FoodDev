@@ -17,24 +17,23 @@ function search(value) {
     searchValue = value;
     displayTable(foods);
 }
-
 function displayNutrsCheckboxes() {
-    let htmlString = "<h1 class='filterby'>Filter by nutrition label:</h1>&nbsp";
+  let htmlString = "<h1 class='filterby'>Filter by nutrition label:</h1>&nbsp&nbsp";
 
-    nutritionsCheckboxes.forEach(nutrition => {
-        htmlString += `<label for="${nutrition}">${nutrition}:&nbsp&nbsp</label>
-                                <input id="${nutrition}" type="checkbox" checked="true" onclick="displayTable(foods)"/>&nbsp`;
-    });
-    document.getElementById("Nutrscheckbox-container").innerHTML = htmlString;
+  nutritionsCheckboxes.forEach(nutrition => {
+      htmlString += `<label for="${nutrition}">${nutrition}:</label>
+                              <input id="${nutrition}" type="checkbox" checked="true" onclick="displayTable(foods)"/>&nbsp&nbsp`;
+  });
+  document.getElementById("Nutrscheckbox-container").innerHTML = htmlString;
 }
 function displayFTagCheckboxes() {
-    let htmlString = "<h1 class='filterby2'>Delete tag:</h1>&nbsp&nbsp";
+  let htmlString = "<h1 class='filterby2'>Delete Tag:</h1>&nbsp&nbsp";
 
-    foodTagsCheckboxes.forEach(foodTag => {
-        htmlString += `<label for="${foodTag}">${foodTag}:&nbsp&nbsp</label>
-                                <input id="${foodTag}" value="${foodTag}" type="checkbox" checked="true" onclick="search(this.value)"/>&nbsp&nbsp`;
-    });
-    document.getElementById("FTagcheckbox-container").innerHTML = htmlString;
+  foodTagsCheckboxes.forEach(foodTag => {
+      htmlString += `<label for="${foodTag}">${foodTag}</label>
+                              <input id="${foodTag}" value="${foodTag}" type="checkbox" checked="true" onclick="search(this.value)"/>&nbsp&nbsp`;
+  });
+  document.getElementById("FTagcheckbox-container").innerHTML = htmlString;
 }
 
 fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
@@ -73,63 +72,63 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
       if (document.getElementById("Energy").checked) {
           htmlString += `<th>Energy (kJ)</th>`;
       }
-      
+
       if (document.getElementById("Protein").checked) {  
           htmlString += `<th>Protein (g)</th>`;
       }
-      
+
       if (document.getElementById("Sat Fat").checked) {
           htmlString += `<th>Saturated Fat (g)</th>`;
       }
-      
+
       if (document.getElementById("Trans Fat").checked) {
           htmlString += `<th>Trans Fat (g)</th>`;
       }
-      
+
       if (document.getElementById("Poly Fat").checked) {
           htmlString += `<th>Poly Fat (g)</th>`;
       }
-      
+
       if (document.getElementById("Mono Fat").checked) {
           htmlString += `<th>Mono Fat (g)</th>`;
       }
-      
+
       if (document.getElementById("Carbohydrates").checked) {
           htmlString += `<th>Carbohydrate (g)</th>`;
       }
-      
+
       if (document.getElementById("Sugars").checked) {
           htmlString += `<th>Sugars (g)</th>`;
       }
-      
+
       if (document.getElementById("Fibre").checked) {
           htmlString += `<th>Fibre (g)</th>`;
       }
-      
+
       if (document.getElementById("Sodium").checked) {
           htmlString += `<th>Sodium (mg)</th>`;
       }
-      
+
       if (document.getElementById("Potassium").checked) {
           htmlString += `<th>Potassium (mg)</th>`;
       }
-      
+
       if (document.getElementById("Calcium").checked) {
           htmlString += `<th>Calcium (mg)</th>`;
       }
-      
+
       if (document.getElementById("Vit E").checked) {
           htmlString += `<th>Vit E (mg)</th>`;
       }
-      
+
       if (document.getElementById("Fat").checked) {
           htmlString += `<th>Fat (g)</th>`;
       }
-      
+
       htmlString += `<th>Edit/Delete</th>
       <th>Special Tags</th>
 </tr>`;
-      
+
 selectedFoods.forEach(food => {
 htmlString += `<tr>
 <td class="names">${food.name}
@@ -339,7 +338,7 @@ function addFood() {
         alert("please only alphabetic characters !");
         return;
     }
-    
+
     //make sure none of the boxes are empty
     if (foodName && foodID) {
         //create newFood object
@@ -353,6 +352,10 @@ function addFood() {
     //empty boxes
     document.getElementById("foodName").value = "";
     document.getElementById("foodID").value = "";
+
+    //close modal
+    const addModal = document.querySelector('.addmodal');
+    addModal.close();
     }
     else { //doesnt work lmaoo
         alert("please enter both name and id !");
@@ -367,7 +370,7 @@ function modifyFood() {
         alert("please only alphabetic characters !");
         return;
     }
-    
+
     //make sure food or id exists
     const existingFood = foods.find(food => food.name === modifyName || food.id === modifyID);
     if (!existingFood) {
@@ -389,6 +392,9 @@ function modifyFood() {
     // Clear input fields
     document.getElementById("modifyName").value = "";
     document.getElementById("modifyID").value = "";
+
+//    const modifyModal = document.querySelector('.modifymodal');
+//    modifyModal.close();
 }
 
 function deleteItem(selectedId) {
@@ -475,20 +481,37 @@ function openAddModal() {
 }
 
 function initializeModal3() {
+  console.log('.adding')
   const addingOpenButtons = document.querySelectorAll('.adding');
   const addModals = document.querySelectorAll('.addmodal');
 
   addingOpenButtons.forEach(button => {
       button.addEventListener('click', () => {
-          const index = Array.from(addingOpenButtons).indexOf(button);
+          let index = Array.from(addingOpenButtons).indexOf(button);
           addModals[index].showModal();
       });
   });
 }
+initializeModal3(); 
 
-initializeModal3();
-
-
+//function openModifyModal() { doesnt work lmao
+//    const modifyModal = document.querySelector('.modifymodal');
+//    modifyModal.showModal();
+//}
+//
+//function initializeModal4() {
+//    const modifyOpenButtons = document.querySelectorAll('.ri-pencil-fill');
+//    const modifyModals = document.querySelectorAll('.modifymodel');
+//    
+//    modifyOpenButtons.forEach(button => {
+////        button.addEventListener('click', openModifyModal);
+//       button.addEventListener('click', () => {
+//          index = Array.from(modifyOpenButtons).indexOf(button);
+//          modifyModals[index].showModal();
+//      });
+//    });
+//}
+//initializeModal4();
 
 
 //WIP - SEARCH
@@ -640,6 +663,9 @@ initializeModal3();
 // deleteButtons.forEach(function(button) {
 //   button.addEventListener('click', function() {
 //     modal.style.display = 'block';
+//     // Here you can handle the delete functionality
+//     // You might want to have some logic to identify which row's delete button was clicked
+//     // and then proceed accordingly
 //   });
 // });
 // });

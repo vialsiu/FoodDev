@@ -455,7 +455,7 @@ tr:nth-child(even)
   color:#29a85171;
 }
 
-.button4:hover{
+.button4,.adding:hover{
   color: #d5c45790;
   transition: 0.2s;
   text-decoration:none;
@@ -489,7 +489,7 @@ text-decoration: none;
   color:#770a0a8c;
 }
 
-.button4
+.button4, .adding
 {
   color:#9dc87df1;
   display: inline-block;
@@ -578,9 +578,9 @@ justify-content: flex-start;
 
 .deleterow-modal,.close-modal{
   margin-top:8vh;
-  height: 2.5vh;
-  font-size: 2vh;
-  width:5vw;
+  height: 5vh;
+  font-size: 3vh;
+  width:8vw;
   text-align:center;
   color: rgb(0, 0, 0);
   border-radius: 12px; 
@@ -593,7 +593,7 @@ justify-content: flex-start;
 }
 
 .deleterow-modal{
-  margin-left: 10vw;
+  margin-left: 14vw;
   background-color:#9dc87df1;
 
 }
@@ -735,45 +735,6 @@ button {
   text-decoration:underline 2px #f0db66;
 
 }
-
- 
-        /* Hover effect */
-        hover input~.checkbox-container {
-            background-color: yellow;
-        }
- 
-        /* Active effect */
-        input:active~checkbox-container {
-            background-color: red;
-        }
- 
-        /* Checked effect */
-        input:checked~checkbox-container {
-            background-color: green;
-        }
- 
-        /* Checkmark */
-        .checkbox-container::after {
-            content: "";
-            position: absolute;
-            display: none;
-            left: 7px;
-            top: 3px;
-            width: 6px;
-            height: 12px;
-            border: solid white;
-            border-width: 0 2px 2px 0;
-            transform: rotate(45deg);
-        }
- 
-        /* Display checkmark when checked */
-        .main input:checked~.checkbox-container::after {
-            display: block;
-        }
-
-
-
-
 
 
 /*------------MEDIA Queries------------------*/
