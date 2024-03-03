@@ -3,6 +3,7 @@ const myInput = document.getElementById('myInput')
 
 let fetchedData;
 let counter=0;
+let searchValue = ""; 
 
 fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
   .then(response => response.json())
@@ -11,6 +12,7 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
 
       renderTable();
       initializeModal();
+      initializeModal2();
   })
   .catch(error => {
     console.error('There was a problem with the fetch operation:', error);
@@ -41,8 +43,47 @@ fetch('https://derek.comp.dkit.ie/java_script/example_code/food.json')
 </tr>`;
 fetchedData.forEach(food => {
 htmlString += `<tr>
-<td class="names" onclick='openModal(${JSON.stringify(food)})'>${food.name}</td>
-<td>${food.id}</td>
+<td class="names">${food.name}
+<dialog class="modalnutrition">
+<h1>Nutritional Information for: ${food.name}.</h1>
+<h2 id="esckey">(Press ESC.)</h2>
+<h2 class="nutriinfo">Energy (kJ): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].energy ? food['nutrition-per-100g'].energy : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].energy ? food['nutrition-per-100ml'].energy : '0'}kJ</h2>
+<h2 class="nutriinfo">Protein (g):  ${food['nutrition-per-100g'] && food['nutrition-per-100g'].protein ? food['nutrition-per-100g'].protein : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].protein ? food['nutrition-per-100ml'].protein : '0'}g</h2>
+<h2 class="nutriinfo">Saturated Fat (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['saturated-fat'] ? food['nutrition-per-100g']['saturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['saturated-fat'] ? food['nutrition-per-100ml']['saturated-fat'] : '0'}g</h2>
+<h2 class="nutriinfo">Trans Fat (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['trans-fat'] ? food['nutrition-per-100g']['trans-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['trans-fat'] ? food['nutrition-per-100ml']['trans-fat'] : '0'}g</h2>
+<h2 class="nutriinfo">Polyunsaturated Fat (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['polyunsaturated-fat'] ? food['nutrition-per-100g']['polyunsaturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['polyunsaturated-fat'] ? food['nutrition-per-100ml']['polyunsaturated-fat'] : '0'}g</h2>
+<h2 class="nutriinfo">Monounsaturated Fat (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['mononunsaturated-fat'] ? food['nutrition-per-100g']['monounsaturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['monounsaturated-fat'] ? food['nutrition-per-100ml']['monounsaturated-fat'] : '0'}g</h2>
+<h2 class="nutriinfo">Carbohydrate (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].carbohydrate ? food['nutrition-per-100g'].carbohydrate : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].carbohydrate ? food['nutrition-per-100ml'].carbohydrate : '0'}g</h2>
+<h2 class="nutriinfo">Sugars (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].sugars ? food['nutrition-per-100g'].sugars : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].sugars ? food['nutrition-per-100ml'].sugars : '0'}g</h2>
+<h2 class="nutriinfo">Dietary Fibre (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['dietary-fibre'] ? food['nutrition-per-100g']['dietary-fibre'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['dietary-fibre'] ? food['nutrition-per-100ml']['dietary-fibre'] : '0'}g</h2>
+<h2 class="nutriinfo">Sodium (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].sodium ? food['nutrition-per-100g'].sodium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].sodium ? food['nutrition-per-100ml'].sodium : '0'}mg</h2>
+<h2 class="nutriinfo">Potassium (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].potassium ? food['nutrition-per-100g'].potassium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].potassium ? food['nutrition-per-100ml'].potassium : '0'}mg</h2>
+<h2 class="nutriinfo">Calcium (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].calcium ? food['nutrition-per-100g'].calcium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].calcium ? food['nutrition-per-100ml'].calcium : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin e (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e'] ? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e'] ? food['nutrition-per-100ml']['vitamin-e'] : '0'}mg</h2>
+<h2 class="nutriinfo">Fat (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].fat ? food['nutrition-per-100g'].fat : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].fat ? food['nutrition-per-100ml'].fat : '0'}g</h2>
+<h2 class="nutriinfo">Omega 3 Fatty acid (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['omega-3-fatty-acid'] ? food['nutrition-per-100g']['omega-3-fatty-acid'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['omega-3-fatty-acid'] ? food['nutrition-per-100ml']['omega-3-fatty-acid'] : '0'}g</h2>
+<h2 class="nutriinfo">Starch (g): ${food['nutrition-per-100g'] && food['nutrition-per-100g'].starch ? food['nutrition-per-100g'].starch : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].starch ? food['nutrition-per-100ml'].starch : '0'}g</h2>
+<h2 class="nutriinfo">Iron (mg):  ${food['nutrition-per-100g'] && food['nutrition-per-100g'].iron ? food['nutrition-per-100g'].iron : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].iron ? food['nutrition-per-100ml'].iron : '0'}mg</h2>
+<h2 class="nutriinfo">Phosphorus (mg):  ${food['nutrition-per-100g'] && food['nutrition-per-100g'].phosphorus ? food['nutrition-per-100g'].phosphorus : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].phosphorus ? food['nutrition-per-100ml'].phosphorus : '0'}mg</h2>
+<h2 class="nutriinfo">Zinc (mg):  ${food['nutrition-per-100g'] && food['nutrition-per-100g'].zinc ? food['nutrition-per-100g'].zinc : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].zinc ? food['nutrition-per-100ml'].zinc : '0'}mg</h2>
+<h2 class="nutriinfo">Manganese (mg):  ${food['nutrition-per-100g'] && food['nutrition-per-100g'].manganese ? food['nutrition-per-100g'].manganese : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].manganese ? food['nutrition-per-100ml'].manganese : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin A (μg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-a'] ? food['nutrition-per-100g']['vitamin-a'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-a'] ? food['nutrition-per-100ml']['vitamin-a'] : '0'}μg</h2>
+<h2 class="nutriinfo">Vitamin B1 (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-b1'] ? food['nutrition-per-100g']['vitamin-b1'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-b1'] ? food['nutrition-per-100ml']['vitamin-b1'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin B2 (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-b2'] ? food['nutrition-per-100g']['vitamin-b2'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-b2'] ? food['nutrition-per-100ml']['vitamin-b2'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin B3 (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-b3'] ? food['nutrition-per-100g']['vitamin-b3'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-b3'] ? food['nutrition-per-100ml']['vitamin-b3'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin B5 (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-b5'] ? food['nutrition-per-100g']['vitamin-b5'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-b5'] ? food['nutrition-per-100ml']['vitamin-b5'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin B6 (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-b6'] ? food['nutrition-per-100g']['vitamin-b6'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-b6'] ? food['nutrition-per-100ml']['vitamin-b6'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin B6 (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-b6'] ? food['nutrition-per-100g']['vitamin-b6'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-b6'] ? food['nutrition-per-100ml']['vitamin-b6'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin B9 (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-b9'] ? food['nutrition-per-100g']['vitamin-b9'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-b9'] ? food['nutrition-per-100ml']['vitamin-b9'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin E (mg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-e'] ? food['nutrition-per-100g']['vitamin-e'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-e'] ? food['nutrition-per-100ml']['vitamin-e'] : '0'}mg</h2>
+<h2 class="nutriinfo">Vitamin K (μg): ${food['nutrition-per-100g'] && food['nutrition-per-100g']['vitamin-k'] ? food['nutrition-per-100g']['vitamin-k'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['vitamin-k'] ? food['nutrition-per-100ml']['vitamin-k'] : '0'}μg</h2>
+<h2 class="nutriinfo">Manganese (mg):  ${food['nutrition-per-100g'] && food['nutrition-per-100g'].magnesium ? food['nutrition-per-100g'].magnesium : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].magnesium ? food['nutrition-per-100ml'].magnesium : '0'}mg</h2>
+</dialog></td>`
+
+
+// I had <button class="closeit">CLOSE</button> - didn't work so left it out
+
+htmlString += `<td>${food.id}</td>
 <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].energy ? food['nutrition-per-100g'].energy : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].energy ? food['nutrition-per-100ml'].energy : '-'}</td>
 <td>${food['nutrition-per-100g'] && food['nutrition-per-100g'].protein ? food['nutrition-per-100g'].protein : food['nutrition-per-100ml'] && food['nutrition-per-100ml'].protein ? food['nutrition-per-100ml'].protein : '-'}</td>
 <td>${food['nutrition-per-100g'] && food['nutrition-per-100g']['saturated-fat'] ? food['nutrition-per-100g']['saturated-fat'] : food['nutrition-per-100ml'] && food['nutrition-per-100ml']['saturated-fat'] ? food['nutrition-per-100ml']['saturated-fat'] : '-'}</td>
@@ -116,6 +157,7 @@ htmlString += `</table><br><div id="recordsfound">[${fetchedData.length} records
 document.getElementById('json-data').innerHTML = htmlString;
 }
 
+
 function deleteItem(selectedId) {
 console.log(selectedId)
   let selectedIndex
@@ -157,37 +199,126 @@ function initializeModal() {
       initializeModal();
     });
   });
+  const opens = document.querySelectorAll('.names');
+  const closethemodal = document.querySelectorAll('.closeit');
+  const modalnutri = document.querySelectorAll('.modalnutrition');
+
+  opens.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      modalnutri[index].showModal();
+    });
+  });
+
+  closethemodal.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      modalnutri[index].close();
+      initializeModal2();
+    });
+  });
+}
+
+
+function initializeModal2(){
+  const opens = document.querySelectorAll('.names');
+  const closethemodal = document.querySelectorAll('.closeit');
+  const modalnutri = document.querySelectorAll('.modalnutrition');
+
+  opens.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      modalnutri[index].showModal();
+    });
+  });
+
+  closethemodal.forEach((button, index) => {
+    button.addEventListener('click', () => {
+      modalnutri[index].close();
+      initializeModal2();
+    });
+  });
 }
 
 
 
 //WIP - SEARCH
-let searchName = ""
-function search(Name) {
-  searchValue = value
-  displaySearchedValue()
-}
 
-function displaySearchedValue() {
-  let namesToDisplay = food.filter(title => (title.food.name.toLowerCase().includes(searchValue.toLowerCase())))
-  namesToDisplay.forEach(title => {
-    htmlString += `<tr>`
+// function search(value) {
+//   searchValue = value.toLowerCase();
+//   renderTable();
+// }
 
-    keys.forEach(key => htmlString += `<td>${title[key]}</td>`)
+// function filterData() {
+//   if (!searchValue) {
+//     return fetchedData;
+//   } else {
+//     return fetchedData.filter(food => {
+//       return Object.values(food).some(val =>
+//         typeof val === 'string' && val.toLowerCase().includes(searchValue)
+//       );
+//     });
+//   }
+// }
 
-    htmlString += `</tr>`
-  })
+// function renderTable() {
+//   const filteredData = filterData(); 
+//   let htmlString = `<table id="tableid">
+//     <tr id="labels_table">
+//     <!-- Table header -->
+//     </tr>`;
 
-  htmlString += `</table>`
-  document.getElementById("json-data-container").innerHTML = htmlString
-}
+//   filteredData.forEach(food => {
+//     // Generate HTML for each row based on filtered data
+//     // Append to htmlString
+//   });
+
+//   htmlString += `</table><br><div id="recordsfound">[${filteredData.length} records found.]</div>`;
+//   document.getElementById('json-data').innerHTML = htmlString;
+// }
 
 
 
-  function printfetched()
-  {
-    console.log(fetchedData);
-  }
+
+
+
+
+
+// let searchValue = ""
+// function search(value) {
+// searchValue = value
+
+//   const searchValue = foods.filter(afood => afood.name === name);
+//   return searchValue;
+
+// }
+// let searchValue = search("Red")
+
+// function displaySearchedValue() {
+//   let namesToDisplay = food.filter(title => (title.food.name.toLowerCase().includes(searchValue.toLowerCase())))
+//   namesToDisplay.forEach(title => {
+//     htmlString += `<tr>`
+
+//     keys.forEach(key => htmlString += `<td>${title[key]}</td>`)
+
+//     htmlString += `</tr>`
+//   })
+
+//   htmlString += `</table>`
+//   document.getElementById("json-data-container").innerHTML = htmlString
+// }
+// function searchCarsByColour(colour)
+// {
+//     const selectedCars = cars.filter(car => car.colour === colour)
+//     return selectedCars
+// }
+
+
+// // Example
+// let selectedCars = searchCarsByColour("Red")
+
+
+//   function printfetched()
+//   {
+//     console.log(fetchedData);
+//}
 
   // document.getElementById('tableid').addEventListener('click', function(event) {
   //   if (event.target.classList.contains('deleteBtn')) {
